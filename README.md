@@ -4,7 +4,7 @@
 IIoT project for data exchange between PLC in OT and IT area with usage of MQTT protocol, Kafka streaming and MongoDB.
 
 ### System Diagram
-![System Architecture](./docs/project-IIoT-mqtt-kafka-elk-tc3.png)
+![System Architecture](./docs/project-IIoT-mqtt-kafka-elk-tia-portal.png)
 
 ### General Overview
 The purpose of this project is to collect data from different sensors, states and devices connected to PLC in OT area.
