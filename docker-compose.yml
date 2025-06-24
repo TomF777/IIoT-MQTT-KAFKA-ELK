@@ -1,0 +1,254 @@
+
+services:
+  hive-mq:
+    container_name: hive-mq-broker
+    image: hivemq/hivemq4:4.40.1
+    ports:
+      - 1883:1883
+      - 8080:8080
+    networks:
+      - mqttkafka
+    volumes: 
+      - ./apps_data/hivemq/data:/opt/hivemq/data
+      - ./apps_data/hivemq/extensions:/opt/hivemq/extensions
+
+
+  zookeeper:
+    container_name: zookeeper
+    image: bitnami/zookeeper:3.9.1
+    # to survive the container restart
+    tmpfs: "/zktmp"
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: 'yes'
+    ports:
+      - 2181:2181
+    networks:
+      - mqttkafka
+
+  kafka:
+    container_name: kafka
+    image: 'bitnami/kafka:4.0.0'
+    ports:
+      - '9092:9092'				# for host internal connection
+      - '9094:9094'				# for host external connection 
+    environment:
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://192.168.1.101:9094			# IP address of host machine for external connection
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+    volumes:
+      - ./apps_data/bitnami:/bitnami/kafka
+    healthcheck:
+       test: ["CMD", "kafka-broker-api-versions.sh", "--bootstrap-server=localhost:9092"]
+       interval: 20s
+       timeout: 10s
+       retries: 5
+    networks:
+      - mqttkafka
+
+
+  kafka-ui:
+    container_name: kafka-ui
+    # test with provectuslabs/kafka-ui:v0.7.2
+    image: provectuslabs/kafka-ui:latest
+    depends_on:
+      - kafka
+    ports:
+      - 8081:8080
+    environment:
+      KAFKA_CLUSTERS_0_NAME: cluster01
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+    networks:
+      - mqttkafka
+
+
+  mongo-db:
+    container_name: mongodb
+    image: mongodb/mongodb-community-server:5.0.28-ubuntu2004
+    ports:
+      - 27017:27017
+    volumes:
+      - ./apps_data/mongodb:/data/db
+    healthcheck:
+        test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+        interval: 20s
+        timeout: 10s
+        retries: 5
+    networks:
+      - mqttkafka
+
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:12.0.1
+    ports:
+      - 3000:3000
+    environment:
+      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: haohanyang-mongodb-datasource
+    links:
+      - mongo-db
+    volumes: 
+      - "./apps_data/grafana/etc/grafana:/etc/grafana"
+      - "./apps_data/grafana/var/log:/var/log/grafana"
+      - "./apps_data/grafana/var/lib:/var/lib"
+    networks:
+      - mqttkafka
+
+ # ===== Kafka message handler for given topics
+  kafka-message-handler-01:
+       container_name: kafka-message-handler-01
+       image: kafka_message_handler_img:0.0.1
+       restart: always
+       environment:
+              KAFKA_TOPIC: ${KAFKA_TOPIC_MACHINE1}
+              KAFKA_HOST: ${KAFKA_HOST}
+              KAFKA_PORT: ${KAFKA_PORT}
+              MONGO_HOST: ${MONGO_HOST}
+              MONGO_PORT: ${MONGO_PORT} 
+       depends_on:
+              kafka:
+                 condition: service_healthy
+              mongo-db:
+                 condition: service_healthy
+       networks:
+              - mqttkafka
+
+
+  kafka-message-handler-02:
+       container_name: kafka-message-handler-02
+       image: kafka_message_handler_img:0.0.1
+       restart: always
+       environment:
+              KAFKA_TOPIC: ${KAFKA_TOPIC_MACHINE2}
+              KAFKA_HOST: ${KAFKA_HOST}
+              KAFKA_PORT: ${KAFKA_PORT}
+              MONGO_HOST: ${MONGO_HOST}
+              MONGO_PORT: ${MONGO_PORT} 
+       depends_on:
+              kafka:
+                 condition: service_healthy
+              mongo-db:
+                 condition: service_healthy
+       networks:
+              - mqttkafka
+
+
+  elasticsearch:
+    container_name: elasticsearch-cntr
+    image: elasticsearch:7.9.1
+    environment:
+      - cluster.name=kafka-cluster
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+    volumes:
+      - ./apps_data/elasticsearch/data:/usr/share/elasticsearch/data:rw
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    mem_limit: 1g
+    ports:
+      - 9200:9200
+      - 9300:9300
+    depends_on:
+      - kafka
+    stdin_open: true
+    tty: true
+    restart: always
+    networks:
+      - mqttkafka
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "50"
+    healthcheck:
+      test: curl -u elastic:elastic -s -f elasticsearch-cntr:9200/_cat/health >/dev/null || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+
+  logstash:
+    container_name: logstash-cntr
+    image: logstash:7.9.1
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./apps_data/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash-kafka.conf
+    ports:
+      - 5044:5044
+    depends_on:
+      - elasticsearch
+    stdin_open: true
+    tty: true
+    restart: always
+    networks:
+      - mqttkafka
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "50"
+    healthcheck:
+      test: ["CMD", "curl", "--silent", "--fail", "http://logstash-cntr:9600"]
+      interval: 30s
+      timeout: 15s
+      retries: 3
+      
+
+  kibana:
+    container_name: kibana-cntr
+    image: kibana:7.9.1
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    stdin_open: true
+    tty: true
+    restart: always
+    networks:
+      - mqttkafka
+    links: ['elasticsearch']
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "50"
+    healthcheck:
+      test: curl --fail http://kibana-cntr:5601 || exit 1
+      interval: 30s
+      retries: 3
+      timeout: 10s
+
+
+
+  global-portainer:
+       container_name: portainer
+       image: portainer/portainer-ce:2.31.1-alpine
+       ports:
+              - 9443:9443
+              - 9000:9000
+       restart: unless-stopped
+       volumes:
+              - "./apps_data/portainer/data:/data"
+              - "/var/run/docker.sock:/var/run/docker.sock"
+
+
+
+networks:
+    mqttkafka:
+        external: true
+

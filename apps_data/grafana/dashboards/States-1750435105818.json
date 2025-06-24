@@ -1,0 +1,291 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 15,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Sensors",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "panels": [
+    {
+      "datasource": {
+        "type": "haohanyang-mongodb-datasource",
+        "uid": "fepc4z6cwcn40e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-green",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisPlacement": "auto",
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "semi-dark-red",
+                  "index": 0,
+                  "text": "stop"
+                },
+                "1": {
+                  "color": "dark-green",
+                  "index": 1,
+                  "text": "run"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "lineName"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_id"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "stateName"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "machineName"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "stateValue"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "."
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "alignValue": "left",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "collection": "states",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"stateName\": \"LineRunning\",\r\n        \"machineName\": \"Machine001\" \r\n                  }\r\n\t\t\r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Line Running",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "haohanyang-mongodb-datasource",
+        "uid": "fepc4z6cwcn40e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-yellow",
+            "mode": "continuous-YlRd"
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "collection": "states",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"stateName\": \"CurrentOrderNo\",\r\n        \"machineName\": \"Machine001\" \r\n                  }\r\n\t\t\r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Current Order Number",
+      "type": "stat"
+    }
+  ],
+  "preload": false,
+  "refresh": "5s",
+  "schemaVersion": 41,
+  "tags": [
+    "States"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "2025-06-19T21:00:10.675Z",
+    "to": "2025-06-19T21:12:10.675Z"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "States",
+  "uid": "eaaa8d8d-9da8-48f1-88ba-6644e6b8118f",
+  "version": 37
+}

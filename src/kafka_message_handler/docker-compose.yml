@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+          
+
+
+ # ===== Kafka message handler for given topics
+  kafka-message-handler-01:
+       container_name: kafka-message-handler-01
+       image: kafka_message_handler_img:0.0.1
+       restart: always
+       environment:
+              KAFKA_TOPIC: ${KAFKA_TOPIC_MACHINE1}
+              KAFKA_HOST: ${KAFKA_HOST}
+              KAFKA_PORT: ${KAFKA_PORT}
+              MONGO_HOST: ${MONGO_HOST}
+              MONGO_PORT: ${MONGO_PORT} 
+       depends_on:
+              kafka:
+                 condition: service_healthy
+              mongo-db:
+                 condition: service_healthy                       
+       networks:
+              - mqttkafka
+
+networks:
+       mqttkafka:
+          external: true
+
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<kafka-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:noNamespaceSchemaLocation="config.xsd">
+    <kafka-clusters>
+        <kafka-cluster>
+            <id>cluster01</id>
+            <bootstrap-servers>127.0.0.1:9092</bootstrap-servers>
+        </kafka-cluster>
+    </kafka-clusters>
+
+    <mqtt-to-kafka-mappings>
+        <mqtt-to-kafka-mapping>
+            <id>mapping01</id>
+            <cluster-id>cluster01</cluster-id>
+            <mqtt-topic-filters>
+                <mqtt-topic-filter>#</mqtt-topic-filter>
+            </mqtt-topic-filters>
+            <kafka-topic>kafka-topic</kafka-topic>
+        </mqtt-to-kafka-mapping>
+    </mqtt-to-kafka-mappings>
+
+    <kafka-to-mqtt-mappings>
+        <kafka-to-mqtt-mapping>
+            <id>mapping02</id>
+            <cluster-id>cluster01</cluster-id>
+            <kafka-topics>
+                <kafka-topic>test</kafka-topic>
+                <kafka-topic-pattern>test-(.)*</kafka-topic-pattern>
+            </kafka-topics>
+        </kafka-to-mqtt-mapping>
+    </kafka-to-mqtt-mappings>
+</kafka-configuration>

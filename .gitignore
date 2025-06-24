@@ -1,0 +1,12 @@
+.venv
+*/__pycache__
+influxdb/data/*
+grafana/plugins/*
+grafana/data/*
+apps_data/bitnami/data/*
+apps_data/elasticsearch/*
+apps_data/hivemq/data/*
+apps_data/mongodb/*
+
+docker-compose-confluent.yml
+

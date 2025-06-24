@@ -1,0 +1,1 @@
+Place your HiveMQ Enterprise Extension for Kafka customizations here.

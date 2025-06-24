@@ -1,0 +1,1488 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 14,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "States",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 17,
+      "panels": [],
+      "title": "Machine001",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "haohanyang-mongodb-datasource",
+        "uid": "fepc4z6cwcn40e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 25,
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "sensorValue"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 15,
+        "x": 0,
+        "y": 1
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor001\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Sensor001",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "haohanyang-mongodb-datasource",
+        "uid": "fepc4z6cwcn40e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "max": 25,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_A maxQA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Max"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_B minQA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Min"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_C avgQA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Mean"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 15,
+        "y": 1
+      },
+      "id": 23,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 150,
+        "namePlacement": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "text"
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor001\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    },\r\n    {\r\n        \"$group\":\r\n                    {\r\n                       \"_id\": \"max\",\r\n                       \"maxQA\": {\"$max\": \"$sensorValue\"} \r\n                    }\r\n                    \r\n    \r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "query_A"
+        },
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "hide": false,
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor001\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    },\r\n    {\r\n        \"$group\":\r\n                    {\r\n                       \"_id\": \"min\",\r\n                       \"minQA\": {\"$min\": \"$sensorValue\"} \r\n                    }\r\n                    \r\n    \r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "query_B"
+        },
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "hide": false,
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor001\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    },\r\n    {\r\n        \"$group\":\r\n                    {\r\n                       \"_id\": \"avg\",\r\n                       \"avgQA\": {\"$avg\": \"$sensorValue\"} \r\n                    }\r\n                    \r\n    \r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "query_C"
+        }
+      ],
+      "title": "Stats",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "haohanyang-mongodb-datasource",
+        "uid": "fepc4z6cwcn40e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green"
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "dark-orange",
+                "value": 80
+              },
+              {
+                "color": "dark-red",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 19,
+        "y": 1
+      },
+      "id": 18,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor001\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Sensor001",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "haohanyang-mongodb-datasource",
+        "uid": "fepc4z6cwcn40e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-blue",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 15,
+            "axisSoftMin": 5,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "sensorValue"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 15,
+        "x": 0,
+        "y": 8
+      },
+      "id": 19,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor002\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Sensor002",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "haohanyang-mongodb-datasource",
+        "uid": "fepc4z6cwcn40e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "max": 15,
+          "min": 5,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_A maxQA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Max"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_B minQA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Min"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_C avgQA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Mean"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 15,
+        "y": 8
+      },
+      "id": 24,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 150,
+        "namePlacement": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "text"
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor002\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    },\r\n    {\r\n        \"$group\":\r\n                    {\r\n                       \"_id\": \"max\",\r\n                       \"maxQA\": {\"$max\": \"$sensorValue\"} \r\n                    }\r\n                    \r\n    \r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "query_A"
+        },
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "hide": false,
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor002\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    },\r\n    {\r\n        \"$group\":\r\n                    {\r\n                       \"_id\": \"min\",\r\n                       \"minQA\": {\"$min\": \"$sensorValue\"} \r\n                    }\r\n                    \r\n    \r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "query_B"
+        },
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "hide": false,
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor002\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    },\r\n    {\r\n        \"$group\":\r\n                    {\r\n                       \"_id\": \"avg\",\r\n                       \"avgQA\": {\"$avg\": \"$sensorValue\"} \r\n                    }\r\n                    \r\n    \r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "query_C"
+        }
+      ],
+      "title": "Stats",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "haohanyang-mongodb-datasource",
+        "uid": "fepc4z6cwcn40e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green"
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "dark-orange",
+                "value": 80
+              },
+              {
+                "color": "dark-red",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 19,
+        "y": 8
+      },
+      "id": 20,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor002\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Sensor002",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "haohanyang-mongodb-datasource",
+        "uid": "fepc4z6cwcn40e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "semi-dark-orange",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 100,
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "sensorValue"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 15,
+        "x": 0,
+        "y": 15
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor003\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Sensor003",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "haohanyang-mongodb-datasource",
+        "uid": "fepc4z6cwcn40e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_A maxQA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Max"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_B minQA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Min"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_C avgQA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Mean"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 15,
+        "y": 15
+      },
+      "id": 25,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 150,
+        "namePlacement": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "text"
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor003\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    },\r\n    {\r\n        \"$group\":\r\n                    {\r\n                       \"_id\": \"max\",\r\n                       \"maxQA\": {\"$max\": \"$sensorValue\"} \r\n                    }\r\n                    \r\n    \r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "query_A"
+        },
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "hide": false,
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor003\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    },\r\n    {\r\n        \"$group\":\r\n                    {\r\n                       \"_id\": \"min\",\r\n                       \"minQA\": {\"$min\": \"$sensorValue\"} \r\n                    }\r\n                    \r\n    \r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "query_B"
+        },
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "hide": false,
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor003\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    },\r\n    {\r\n        \"$group\":\r\n                    {\r\n                       \"_id\": \"avg\",\r\n                       \"avgQA\": {\"$avg\": \"$sensorValue\"} \r\n                    }\r\n                    \r\n    \r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "query_C"
+        }
+      ],
+      "title": "Stats",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "haohanyang-mongodb-datasource",
+        "uid": "fepc4z6cwcn40e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green"
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "dark-orange",
+                "value": 80
+              },
+              {
+                "color": "dark-red",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 19,
+        "y": 15
+      },
+      "id": 22,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "collection": "sensors",
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "isStreaming": false,
+          "queryLanguage": "json",
+          "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor003\",\r\n        \"machineName\": \"Machine001\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    }\r\n]\r\n",
+          "queryType": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Sensor003",
+      "type": "gauge"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 13,
+      "panels": [
+        {
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 10,
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 3,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      "sensorValue"
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 21,
+            "x": 0,
+            "y": 23
+          },
+          "id": 11,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.0.1",
+          "targets": [
+            {
+              "collection": "sensors",
+              "datasource": {
+                "type": "haohanyang-mongodb-datasource",
+                "uid": "fepc4z6cwcn40e"
+              },
+              "isStreaming": false,
+              "queryLanguage": "json",
+              "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor001\",\r\n        \"machineName\": \"Machine002\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    }\r\n]\r\n",
+              "queryType": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Sensor001",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-green"
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 50
+                  },
+                  {
+                    "color": "dark-orange",
+                    "value": 75
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 90
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 3,
+            "x": 21,
+            "y": 23
+          },
+          "id": 4,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "12.0.1",
+          "targets": [
+            {
+              "collection": "sensors",
+              "datasource": {
+                "type": "haohanyang-mongodb-datasource",
+                "uid": "fepc4z6cwcn40e"
+              },
+              "isStreaming": false,
+              "queryLanguage": "json",
+              "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor001\",\r\n        \"machineName\": \"Machine002\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    }\r\n]\r\n",
+              "queryType": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Sensor001",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "semi-dark-orange",
+                "mode": "fixed"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 80,
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 3,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      "sensorValue"
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 21,
+            "x": 0,
+            "y": 29
+          },
+          "id": 14,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.0.1",
+          "targets": [
+            {
+              "collection": "sensors",
+              "datasource": {
+                "type": "haohanyang-mongodb-datasource",
+                "uid": "fepc4z6cwcn40e"
+              },
+              "isStreaming": false,
+              "queryLanguage": "json",
+              "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor002\",\r\n        \"machineName\": \"Machine002\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    }\r\n]\r\n",
+              "queryType": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Sensor002",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "haohanyang-mongodb-datasource",
+            "uid": "fepc4z6cwcn40e"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-green"
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 50
+                  },
+                  {
+                    "color": "dark-orange",
+                    "value": 75
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 90
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 3,
+            "x": 21,
+            "y": 29
+          },
+          "id": 15,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "12.0.1",
+          "targets": [
+            {
+              "collection": "sensors",
+              "datasource": {
+                "type": "haohanyang-mongodb-datasource",
+                "uid": "fepc4z6cwcn40e"
+              },
+              "isStreaming": false,
+              "queryLanguage": "json",
+              "queryText": "\r\n[\r\n    {\r\n        \"$match\": {\r\n            \"date\": {\r\n                \"$gte\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__from\"\r\n                            }\r\n                        },\r\n                \"$lt\": {\r\n                    \"$date\": {\r\n                        \"$numberLong\": \"$__to\"\r\n                            }\r\n                        }\r\n                    },\r\n\t\t\"sensorName\": \"Sensor002\",\r\n        \"machineName\": \"Machine002\",\r\n        \"lineName\": \"Line001\"  \r\n                  }\r\n\t\t\r\n    }\r\n]\r\n",
+              "queryType": "table",
+              "refId": "A"
+            }
+          ],
+          "title": "Sensor002",
+          "type": "gauge"
+        }
+      ],
+      "title": "Machine002",
+      "type": "row"
+    }
+  ],
+  "preload": false,
+  "refresh": "5s",
+  "schemaVersion": 41,
+  "tags": [
+    "Sensors"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "2025-06-20T16:04:08.104Z",
+    "to": "2025-06-20T16:05:01.475Z"
+  },
+  "timepicker": {},
+  "timezone": "utc",
+  "title": "Sensors",
+  "uid": "fa7d995e-0756-4d2c-b65c-f347abbb593e",
+  "version": 149
+}
